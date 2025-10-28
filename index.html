@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cláudia Confeitaria - Doces Artesanais</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    </head>
+<body>
+    <header class="header">
+    <div class="container">
+       <div class="logo">
+            <a href="#">
+                <img src="img/logo.jpg" alt="Logo Cláudia Confeitaria">
+                <span class="logo-text">Cláudia Confeiteira</span>
+            </a>
+        </div>
+        
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sabores">Sabores</a></li>
+                <li><a href="#encomendar">Encomendar</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a href="https://wa.me/5516992741572" class="whatsapp-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+        </nav>
+        
+        <button class="mobile-menu-toggle" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+    </div>
+</header>
+
+    <main>
+    <section id="inicio" class="hero-section">
+        
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+        <div class="hero-content">
+            <h1>Doces que Encantam</h1>
+            <p>Bem-vindos à nossa confeitaria artesanal!!!</p>
+            <div class="hero-buttons">
+                <a href="#encomendar" class="btn btn-primary">Encomendar Agora</a>
+                <a href="#sabores" class="btn btn-secondary">Ver Sabores</a>
+            </div>
+
+                </div>
+        </div>
+    </section>
+
+        <section id="valores" class="values-section">
+            <div class="container">
+                <h2 class="text-to-split">Nossos Valores</h2>
+                
+                <div class="values-grid">
+                    <div class="value-item">
+                        <i class="fas fa-heart"></i>
+                        <h3>Paixão</h3>
+                        <p>Cada doce é feito com amor e dedicação artesanal.</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-scroll"></i>
+                        <h3>Tradição</h3>
+                        <p>Receitas familiares passadas de geração em geração.</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-medal"></i>
+                        <h3>Qualidade</h3>
+                        <p>Ingredientes premium e técnicas artesanais.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sabores" class="flavors-section">
+            <div class="container">
+                <h2>Nossos Sabores</h2>
+                <p>Descubra nossa seleção de bolos artesanais, cada um criado com ingredientes especiais e muito carinho.</p>
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Busque pelo sabor desejado..." id="flavor-search">
+                    </div>
+                    <div class="filters">
+                        <i class="fas fa-filter"></i>
+                        <div class="filter-dropdown">
+                            <select id="flavor-filter">
+                                <option value="all">Todos os Sabores</option>
+                                <option value="bolobranco">Bolos Brancos</option>
+                                <option value="chocolate">Bolos de Chocolate</option>
+                            </select>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select id="allergen-filter">
+                                <option value="all">Todas as Opções</option>
+                                <option value="semlactose">Sem Lactose</option>
+                                <option value="semgluten">Sem Glúten</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flavor-grid" id="flavor-list">
+                    </div>
+            </div>
+        </section>
+
+        <section id="encomendar" class="order-section">
+            <div class="container">
+                <h2>Fazer Encomenda</h2>
+                <p>Preencha os dados abaixo e enviaremos sua encomenda via WhatsApp para confirmação.</p>
+                <div class="order-form-container">
+                    <form class="order-form" id="order-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <i class="fas fa-user"></i>
+                                <label for="nome_completo">Nome Completo *</label>
+                                <input type="text" id="nome_completo" name="nome_completo" required>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-phone"></i>
+                                <label for="telefone">Telefone *</label>
+                                <input type="tel" id="telefone" name="telefone" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fab fa-whatsapp"></i>
+                            <label for="whatsapp">WhatsApp (se diferente do telefone)</label>
+                            <input type="tel" id="whatsapp" name="whatsapp">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <i class="fas fa-cookie-bite"></i>
+                                <label for="sabor_bolo">Sabor do Bolo *</label>
+                                <select id="sabor_bolo" name="sabor_bolo" required>
+                                    <option value="">Selecione o sabor desejado</option>
+                                    <option value="Ameixa c/ doce de leite e coco">Ameixa c/ doce de leite e coco</option>
+                                    <option value="Mousse de maracujá c/ brigadeiro">Mousse de maracujá c/ brigadeiro</option>
+                                    <option value="Sensação c/ mousse de chocolate branco">Sensação c/ mousse de chocolate branco</option>
+                                    <option value="Brigadeiro gourmet c/ morango">Brigadeiro gourmet c/ morango</option>
+                                    <option value="Coco c/ doce de leite">Coco c/ doce de leite</option>
+                                    <option value="Abacaxi c/ creme">Abacaxi c/ creme</option>
+                                    <option value="Prestigio (coco c/ chocolate)">Prestigio (coco c/ chocolate)</option>
+                                    <option value="Frutas vermelhas c/ chantilly">Frutas vermelhas c/ chantilly</option>
+                                    <option value="Limão c/ merengue">Limão c/ merengue</option>
+                                    <option value="Baunilha c/ doce de leite">Baunilha c/ doce de leite</option>
+                                    <option value="Laranja c/ chocolate branco">Laranja c/ chocolate branco</option>
+                                    <option value="Beijinho (coco c/ leite condensado)">Beijinho (coco c/ leite condensado)</option>
+                                    <option value="Leite condensado c/ morango">Leite condensado c/ morango</option>
+                                    <option value="Floresta negra">Floresta negra</option>
+                                    <option value="Mousse de chocolate c/ brigadeiro gourmet">Mousse de chocolate c/ brigadeiro gourmet</option>
+                                    <option value="Brigadeiro tradicional">Brigadeiro tradicional</option>
+                                    <option value="Chocolate c/ nozes">Chocolate c/ nozes</option>
+                                    <option value="Ninho c/ nutella">Ninho c/ nutella</option>
+                                    <option value="Dois amores (chocolate c/ branco)">Dois amores (chocolate c/ branco)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-cake-candles"></i>
+                                <label for="tamanho_bolo">Tamanho do Bolo *</label>
+                                <select id="tamanho_bolo" name="tamanho_bolo" required>
+                                    <option value="">Selecione o tamanho</option>
+                                    <option value="1Kg">1Kg (Serve até 8 pessoas)</option>
+                                    <option value="2Kg">2Kg (Serve até 16 pessoas)</option>
+                                    <option value="3Kg">3Kg (Serve até 24 pessoas)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <i class="fas fa-calendar-alt"></i>
+                                <label for="data_entrega">Data de Entrega *</label>
+                                <input type="date" id="data_entrega" name="data_entrega" required>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-gift"></i>
+                                <label for="ocasiao">Ocasião</label>
+                                <input type="text" id="ocasiao" name="ocasiao">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-notes-medical"></i>
+                            <label for="observacoes_especiais">Observações Especiais</label>
+                            <textarea id="observacoes_especiais" name="observacoes_especiais" placeholder="Personalizações, decorações especiais, observações sobre alergias, etc."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Enviar Encomenda pelo WhatsApp</button>
+                    </form>
+                    <div class="order-info-panel">
+                        <div class="info-block">
+                            <h4>Guia de Tamanhos</h4>
+                            <ul>
+                                <li><strong>1Kg:</strong> Serve até 8 pessoas</li>
+                                <li><strong>2Kg:</strong> Serve até 16 pessoas</li>
+                                <li><strong>3Kg:</strong> Serve até 24 pessoas</li>
+                            </ul>
+                        </div>
+                        <div class="info-block">
+                            <h4>Informações de Contato</h4>
+                            <p><i class="fab fa-whatsapp"></i> WhatsApp Principal: (16) 98134-8725</p>
+                            <p><i class="fas fa-phone"></i> Alternativo: (16) 99274-1572</p>
+                            <p><strong>Prazo de entrega:</strong> Mínimo 48h de antecedência para encomendas.</p>
+                        </div>
+                        <div class="info-block">
+                            <h4>Dicas Importantes</h4>
+                            <ul>
+                                <li>Faça sua encomenda com pelo menos 48h de antecedência.</li>
+                                <li>Informações sobre alergias são muito importantes.</li>
+                                <li>Personalizações podem alterar o prazo de entrega.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="contact-section">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <p>Estamos aqui para tornar seu momento especial ainda mais doce. Entre em contato conosco através de qualquer um dos canais abaixo.</p>
+                <div class="contact-grid">
+                    <div class="contact-channels">
+                        <h3>Nossos Canais de Atendimento</h3>
+                        <div class="contact-channel-item">
+                            <i class="fas fa-phone"></i>
+                            <h4>Telefone Principal</h4>
+                            <p>(16) 98134-8725</p>
+                            <span>Ligue para fazer seu pedido</span>
+                        </div>
+                        <div class="contact-channel-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <h4>Telefone Alternativo</h4>
+                            <p>(16) 99274-1572</p>
+                            <span>Segundo número para contato</span>
+                        </div>
+                        <div class="contact-channel-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <h4>WhatsApp</h4>
+                            <p>(16) 99274-1572</p>
+                            <span>Nosso canal principal de atendimento</span>
+                        </div>
+                        <div class="contact-channel-item">
+                            <i class="fab fa-instagram"></i>
+                            <h4>Instagram</h4>
+                            <p>@claudia_confeitaria</p>
+                            <span>Siga-nos para ver nossos doces</span>
+                        </div>
+                        <a href="https://wa.me/5516992741572" class="btn btn-whatsapp-block" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Falar Agora
+                        </a>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Nossa Localização</h3>
+                        <div class="location-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h4>Cláudia Confeitaria - Doces Artesanais</h4>
+                            <p>Ribeirão Preto - SP</p>
+                            <p>Atendimento em toda a região</p>
+                            <span>Delivery disponível</span>
+                        </div>
+                        <div class="delivery-check">
+                            <i class="fas fa-truck-loading"></i>
+                            <p>Fazemos entregas em Ribeirão Preto e região. Entre em contato para verificar disponibilidade na sua área.</p>
+                            <button class="btn btn-secondary">Consultar Entrega</button>
+                        </div>
+                        <h3>Horários de Funcionamento</h3>
+                        <div class="hours-item">
+                            <h4>Segunda a Sexta</h4>
+                            <p>8h às 18h</p>
+                        </div>
+                        <div class="hours-item">
+                            <h4>Sábado</h4>
+                            <p>8h às 16h</p>
+                        </div>
+                        <div class="hours-item">
+                            <h4>Domingo</h4>
+                            <p>9h às 15h</p>
+                        </div>
+                        <div class="important-note">
+                            <i class="fas fa-info-circle"></i>
+                            <h4>Importante</h4>
+                            <p>Encomendas devem ser feitas com pelo menos 48h de antecedência. Em feriados, consulte nossos horários especiais.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="Cláudia Confeitaria">
+                </div>
+                <p>Criando momentos especiais através de bolos artesanais feitos com paixão, tradição e os melhores ingredientes. Cada doce é uma expressão de amor e dedicação, direto de Ribeirão Preto para sua mesa.</p>
+                <div class="footer-note"><i class="fas fa-heart"></i> Feito com amor em Ribeirão Preto</div>
+                <div class="copyright">© 2024 Cláudia Confeitaria. Todos os direitos reservados.</div>
+            </div>
+            <div class="footer-center">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sabores">Nossos Sabores</a></li>
+                    <li><a href="#encomendar">Fazer Encomenda</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-right">
+                <h3>Contato</h3>
+                <p><i class="fab fa-whatsapp"></i> (16) 98134-8725 <span>WhatsApp Principal</span></p>
+                <p><i class="fas fa-phone"></i> (16) 99274-1572 <span>Telefone Alternativo</span></p>
+                <p><i class="fas fa-map-marker-alt"></i> Ribeirão Preto - SP <span>Atendimento em toda a região</span></p>
+                <div class="social-icons">
+                    <a href="https://wa.me/5516981348725" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/claudia_confeitaria" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
