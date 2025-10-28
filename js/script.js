@@ -6,84 +6,84 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: "Ameixa c/ doce de leite e coco",
             description: "Delicioso bolo de massa branca com recheio de ameixa, doce de leite cremoso e coco ralado.",
-            image: "img/bolo1.jpg",
+            image: "img/bolo1.jpeg",
             tags: ["Bolo Branco", "Sem lactose", "Sem glúten"],
             filters: ["bolobranco", "semlactose", "semgluten"]
         },
         {
             name: "Mousse de maracujá c/ brigadeiro",
             description: "Bolo aerado com mousse refrescante de maracujá e cobertura de brigadeiro tradicional.",
-            image: "img/bolo2.jpg",
+            image: "img/bolo2.jpeg",
             tags: ["Bolo Branco", "Gourmet"],
             filters: ["bolobranco", "gourmet"]
         },
         {
             name: "Sensação c/ mousse de chocolate branco",
             description: "Inspirado no famoso sorvete, com mousse cremosa de chocolate branco e pedaços de morango frescos.",
-            image: "img/bolo3.jpg",
+            image: "img/bolo3.jpeg",
             tags: ["Bolo Branco", "Gourmet"],
             filters: ["bolobranco", "gourmet"]
         },
         {
             name: "Brigadeiro gourmet c/ morango",
             description: "Bolo sofisticado com brigadeiro branco cremoso e morangos frescos selecionados.",
-            image: "img/bolo4.jpg",
+            image: "img/bolo4.jpeg",
             tags: ["Bolo Branco", "Gourmet", "Sem lactose"],
             filters: ["bolobranco", "gourmet", "semlactose"]
         },
         {
             name: "Coco c/ doce de leite",
             description: "Massa macia de coco com recheio cremoso de doce de leite e cobertura de coco ralado.",
-            image: "img/bolo5.jpg",
+            image: "img/bolo5.jpeg",
             tags: ["Bolo Branco", "Sem glúten"],
             filters: ["bolobranco", "semgluten"]
         },
         {
             name: "Abacaxi c/ creme",
             description: "Refrescante bolo com pedaços de abacaxi natural e creme suave, perfeito para o verão.",
-            image: "img/bolo6.jpg",
+            image: "img/bolo6.jpeg",
             tags: ["Bolo Branco"],
             filters: ["bolobranco"]
         },
         {
             name: "Prestigio (coco c/ chocolate)",
             description: "Inspirado no famoso doce, com massa de chocolate e recheio cremoso de coco.",
-            image: "img/bolo7.jpg",
+            image: "img/bolo7.jpeg",
             tags: ["Chocolate", "Gourmet"],
             filters: ["chocolate", "gourmet"]
         },
         {
             name: "Floresta Negra",
             description: "Clássico alemão com massa de chocolate, cerejas e chantilly.",
-            image: "img/bolo8.jpg",
+            image: "img/bolo8.jpeg",
             tags: ["Chocolate", "Gourmet"],
             filters: ["chocolate", "gourmet"]
         },
         {
             name: "Mousse de chocolate c/ brigadeiro gourmet",
             description: "Combinação perfeita de mousse aerada de chocolate e brigadeiro cremoso premium.",
-            image: "img/bolo9.jpg",
+            image: "img/bolo9.jpeg",
             tags: ["Chocolate", "Gourmet", "Sem lactose"],
             filters: ["chocolate", "gourmet", "semlactose"]
         },
         {
             name: "Brigadeiro tradicional",
             description: "Clássico bolo brasileiro em forma de bolo, massa de chocolate com brigadeiro cremoso.",
-            image: "img/bolo10.jpg",
+            image: "img/bolo10.jpeg",
             tags: ["Chocolate"],
             filters: ["chocolate"]
         },
         {
             name: "Chocolate c/ nozes",
             description: "Rica massa de chocolate com pedaços crocantes de nozes selecionadas.",
-            image: "img/bolo11.jpg",
+            image: "img/bolo11.jpeg",
             tags: ["Chocolate", "Gourmet", "Sem glúten"],
             filters: ["chocolate", "gourmet", "semgluten"]
         },
         {
             name: "Ninho c/ nutella",
             description: "Irresistível combinação de leite ninho com cobertura cremosa de nutella.",
-            image: "img/bolo12.jpg",
+            image: "img/bolo12.jpeg",
             tags: ["Chocolate", "Gourmet"],
             filters: ["chocolate", "gourmet"]
         }
