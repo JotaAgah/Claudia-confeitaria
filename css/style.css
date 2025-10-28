@@ -191,7 +191,7 @@ h1, h2, h3 {
     top: -15%;
     left: -15%;
     background: radial-gradient(circle, #3ffbf5, #0CF0B7, transparent 60%);
-    animation-duration: 25s;
+    animation-duration: 10s;
     animation-delay: -12s; 
 }
 
@@ -202,7 +202,7 @@ h1, h2, h3 {
     bottom: -15%;
     right: -15%;
     background: radial-gradient(circle, #7257D4, #A651AC, transparent 60%);
-    animation-duration: 20s;
+    animation-duration: 8s;
 }
 
 /* Blob 3 (Laranja/Amarelo) */
@@ -212,7 +212,7 @@ h1, h2, h3 {
     bottom: 20%; 
     left: 30%;
     background: radial-gradient(circle, #F00CE1, #e8b71d, transparent 70%);
-    animation-duration: 30s;
+    animation-duration: 10s;
     animation-delay: -5s;
 }
 
