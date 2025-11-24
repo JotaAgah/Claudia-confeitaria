@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // =============================================================
-    // 1. DADOS DOS BOLOS (A LISTA QUE TINHA SUMIDO)
+    // 1. DADOS DOS BOLOS (ATUALIZADO SEM TAGS DE ALERGIA)
     // =============================================================
     const cakes = [
         {
             name: "Ameixa c/ doce de leite e coco",
             description: "Delicioso bolo de massa branca com recheio de ameixa, doce de leite cremoso e coco ralado.",
             image: "img/bolo1.png",
-            tags: ["Bolo Branco", "Sem lactose", "Sem glúten"],
-            filters: ["bolobranco", "semlactose", "semgluten"]
+            tags: ["Bolo Branco"], 
+            filters: ["bolobranco"]
         },
         {
             name: "Mousse de maracujá c/ brigadeiro",
@@ -29,15 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "Brigadeiro gourmet c/ morango",
             description: "Bolo sofisticado com brigadeiro branco cremoso e morangos frescos selecionados.",
             image: "img/bolo4.png",
-            tags: ["Bolo Branco", "Gourmet", "Sem lactose"],
-            filters: ["bolobranco", "gourmet", "semlactose"]
+            tags: ["Bolo Branco", "Gourmet"],
+            filters: ["bolobranco", "gourmet"]
         },
         {
             name: "Coco c/ doce de leite",
             description: "Massa macia de coco com recheio cremoso de doce de leite e cobertura de coco ralado.",
             image: "img/bolo5.png",
-            tags: ["Bolo Branco", "Sem glúten"],
-            filters: ["bolobranco", "semgluten"]
+            tags: ["Bolo Branco"],
+            filters: ["bolobranco"]
         },
         {
             name: "Abacaxi c/ creme",
@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "Mousse de chocolate c/ brigadeiro gourmet",
             description: "Combinação perfeita de mousse aerada de chocolate e brigadeiro cremoso premium.",
             image: "img/bolo9.png",
-            tags: ["Chocolate", "Gourmet", "Sem lactose"],
-            filters: ["chocolate", "gourmet", "semlactose"]
+            tags: ["Chocolate", "Gourmet"],
+            filters: ["chocolate", "gourmet"]
         },
         {
             name: "Brigadeiro tradicional",
@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "Chocolate c/ nozes",
             description: "Rica massa de chocolate com pedaços crocantes de nozes selecionadas.",
             image: "img/bolo11.png",
-            tags: ["Chocolate", "Gourmet", "Sem glúten"],
-            filters: ["chocolate", "gourmet", "semgluten"]
+            tags: ["Chocolate", "Gourmet"],
+            filters: ["chocolate", "gourmet"]
         },
         {
             name: "Ninho c/ nutella",
@@ -96,11 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const flavorList = document.getElementById('flavor-list');
     const flavorSearch = document.getElementById('flavor-search');
     const flavorFilter = document.getElementById('flavor-filter');
-    const allergenFilter = document.getElementById('allergen-filter');
+    // REMOVIDO: const allergenFilter ...
 
     // Função que desenha os cards na tela
     const renderCakes = (filteredCakes) => {
-        if (!flavorList) return; // Segurança caso a lista não exista
+        if (!flavorList) return; 
         
         flavorList.innerHTML = '';
         if (filteredCakes.length === 0) {
@@ -129,13 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterAndSearchCakes = () => {
         const searchTerm = flavorSearch.value.toLowerCase();
         const selectedFlavor = flavorFilter.value;
-        const selectedAllergen = allergenFilter.value;
+        // REMOVIDO: const selectedAllergen ...
 
         const filteredCakes = cakes.filter(cake => {
             const matchesSearch = cake.name.toLowerCase().includes(searchTerm) || cake.description.toLowerCase().includes(searchTerm);
             const matchesFlavor = selectedFlavor === 'all' || cake.filters.includes(selectedFlavor);
-            const matchesAllergen = selectedAllergen === 'all' || cake.filters.includes(selectedAllergen);
-            return matchesSearch && matchesFlavor && matchesAllergen;
+            // REMOVIDO: const matchesAllergen ...
+            
+            // Retorna apenas se bater com a busca E com o sabor
+            return matchesSearch && matchesFlavor;
         });
         renderCakes(filteredCakes);
     };
@@ -143,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ativa os filtros se os elementos existirem
     if (flavorSearch) flavorSearch.addEventListener('input', filterAndSearchCakes);
     if (flavorFilter) flavorFilter.addEventListener('change', filterAndSearchCakes);
-    if (allergenFilter) allergenFilter.addEventListener('change', filterAndSearchCakes);
+    // REMOVIDO: if (allergenFilter) ...
     
     // Desenha a lista inicial
     renderCakes(cakes);
@@ -159,17 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const phoneMask = (value) => {
         if (!value) return "";
-        
-        // 1. Remove tudo que NÃO é número
         value = value.replace(/\D/g, ''); 
-        
-        // Se não tem números, retorna vazio
         if (value.length === 0) return "";
-
-        // 2. Limita a 11 números (DDD + 9 dígitos)
         value = value.substring(0, 11);
-
-        // 3. Aplica a formatação
         if (value.length > 10) {
             value = value.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
         } else if (value.length > 6) { 
@@ -179,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             value = value.replace(/^(\d*)/, "($1");
         }
-        
         return value;
     }
 
@@ -196,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (dateInput) {
         const today = new Date();
-        today.setDate(today.getDate() + 2); // Hoje + 2 dias
+        today.setDate(today.getDate() + 2); 
         
         const yyyy = today.getFullYear();
         const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -230,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = document.getElementById('data_entrega').value;
             const observacoes = document.getElementById('observacoes_especiais').value;
             
-            // --- VALIDAÇÃO ---
             const whatsappClean = whatsapp.replace(/\D/g, '');
             const telefoneClean = telefone.replace(/\D/g, '');
 
@@ -245,9 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('telefone').focus();
                 return; 
             }
-            // --- FIM VALIDAÇÃO ---
 
-            const whatsappNumber = "5516981348725"; 
+            const whatsappNumber = "5516992741572"; 
 
             let message = `Olá, gostaria de fazer um pedido de bolo. Aqui estão os detalhes:\n\n`;
             message += `*Nome Completo:* ${nome}\n`;
