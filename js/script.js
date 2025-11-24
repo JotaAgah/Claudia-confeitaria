@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // =============================================================
-    // CONFIGURAÇÃO DOS DADOS (DEIXADO COMPLETO POR PRECAUÇÃO)
+    // 1. DADOS DOS BOLOS (A LISTA QUE TINHA SUMIDO)
     // =============================================================
     const cakes = [
         {
@@ -89,17 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    // =============================================================
+    // 2. LÓGICA DA GALERIA (RENDERIZAR E FILTRAR)
+    // =============================================================
     const flavorList = document.getElementById('flavor-list');
     const flavorSearch = document.getElementById('flavor-search');
     const flavorFilter = document.getElementById('flavor-filter');
     const allergenFilter = document.getElementById('allergen-filter');
-    const orderForm = document.getElementById('order-form');
 
-    // Funções de Filtro e Busca (omitidas por brevidade, mas você deve mantê-las)
+    // Função que desenha os cards na tela
     const renderCakes = (filteredCakes) => {
+        if (!flavorList) return; // Segurança caso a lista não exista
+        
         flavorList.innerHTML = '';
         if (filteredCakes.length === 0) {
-            flavorList.innerHTML = '<p>Nenhum sabor encontrado. Tente outra busca ou filtro.</p>';
+            flavorList.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhum sabor encontrado. Tente outra busca ou filtro.</p>';
             return;
         }
         filteredCakes.forEach(cake => {
@@ -119,10 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
             flavorList.appendChild(card);
         });
     };
+
+    // Função que filtra os bolos
     const filterAndSearchCakes = () => {
         const searchTerm = flavorSearch.value.toLowerCase();
         const selectedFlavor = flavorFilter.value;
         const selectedAllergen = allergenFilter.value;
+
         const filteredCakes = cakes.filter(cake => {
             const matchesSearch = cake.name.toLowerCase().includes(searchTerm) || cake.description.toLowerCase().includes(searchTerm);
             const matchesFlavor = selectedFlavor === 'all' || cake.filters.includes(selectedFlavor);
@@ -132,133 +140,160 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCakes(filteredCakes);
     };
 
-    // Event listeners de Filtro/Busca e Carregamento
-    flavorSearch.addEventListener('input', filterAndSearchCakes);
-    flavorFilter.addEventListener('change', filterAndSearchCakes);
-    allergenFilter.addEventListener('change', filterAndSearchCakes);
+    // Ativa os filtros se os elementos existirem
+    if (flavorSearch) flavorSearch.addEventListener('input', filterAndSearchCakes);
+    if (flavorFilter) flavorFilter.addEventListener('change', filterAndSearchCakes);
+    if (allergenFilter) allergenFilter.addEventListener('change', filterAndSearchCakes);
+    
+    // Desenha a lista inicial
     renderCakes(cakes);
 
-    // Formulário (código omitido por brevidade, mas você deve mantê-lo)
-    orderForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nome = document.getElementById('nome_completo').value;
-        const telefone = document.getElementById('telefone').value;
-        const whatsapp = document.getElementById('whatsapp').value;
-        const sabor = document.getElementById('sabor_bolo').value;
-        const tamanho = document.getElementById('tamanho_bolo').value;
-        const data = document.getElementById('data_entrega').value;
-        const ocasiao = document.getElementById('ocasiao').value;
-        const observacoes = document.getElementById('observacoes_especiais').value;
-        const whatsappNumber = "5516981348725"; 
-        let message = `Olá, gostaria de fazer um pedido de bolo. Aqui estão os detalhes:\n\n`;
-        message += `*Nome Completo:* ${nome}\n*Telefone:* ${telefone}\n`;
-        if (whatsapp) { message += `*WhatsApp:* ${whatsapp}\n`; }
-        message += `*Sabor do Bolo:* ${sabor}\n*Tamanho do Bolo:* ${tamanho}\n*Data de Entrega:* ${data}\n`;
-        if (ocasiao) { message += `*Ocasião:* ${ocasiao}\n`; }
-        if (observacoes) { message += `*Observações Especiais:* ${observacoes}\n`; }
-        message += `\n*Aguardamos seu contato para confirmar o pedido!*`;
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-    });
 
     // =============================================================
-    // CÓDIGO GSAP PARA ANIMAÇÕES
+    // 3. MÁSCARA DE TELEFONE E WHATSAPP (CORRIGIDA)
     // =============================================================
+    const handlePhoneMask = (event) => {
+        let input = event.target;
+        input.value = phoneMask(input.value);
+    }
 
-    // 1. Animação do Título "Nossos Valores"
-    const applyScrollFloat = (selector) => {
-        const element = document.querySelector(selector);
-        if (!element) return;
+    const phoneMask = (value) => {
+        if (!value) return "";
         
-        // Separa o texto em <span>
-        const text = element.textContent;
-        element.textContent = ''; 
-        const splitTextHTML = text.split('').map((char, index) => {
-            const content = char === ' ' ? '\u00A0' : char; 
-            return `<span class="char">${content}</span>`;
-        }).join('');
-        element.innerHTML = splitTextHTML;
+        // 1. Remove tudo que NÃO é número
+        value = value.replace(/\D/g, ''); 
         
-        const charElements = element.querySelectorAll('.char');
+        // Se não tem números, retorna vazio
+        if (value.length === 0) return "";
 
-        // Aplica a animação
-        gsap.fromTo(
-            charElements,
-            { willChange: 'opacity, transform', opacity: 0, yPercent: 120, scaleY: 2.3, scaleX: 0.7, transformOrigin: '50% 0%' },
-            {
-                duration: 1.2, 
-                ease: 'power2.out',
-                opacity: 1,
-                yPercent: 0,
-                scaleY: 1,
-                scaleX: 1,
-                stagger: 0.03, 
-                scrollTrigger: {
-                    trigger: element,
-                    start: 'top bottom', 
-                    end: 'center center', 
-                    scrub: true 
-                }
-            }
-        );
-    };
-    applyScrollFloat('.text-to-split');
-    
-    // 2. Animação das Caixas de Valores (Paixão, Tradição, Qualidade)
-    const valueItems = gsap.utils.toArray('.value-item');
+        // 2. Limita a 11 números (DDD + 9 dígitos)
+        value = value.substring(0, 11);
 
-    gsap.from(valueItems, {
-        y: 100, // Começa 100px abaixo da posição final
-        opacity: 0, // Começa totalmente transparente
-        stagger: 0.2, // Atraso de 0.2 segundos entre cada caixa
-        duration: 0.8, // Duração de 0.8 segundos para a transição
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.values-grid', // O gatilho é o container das caixas
-            start: 'top 85%', // Começa quando o topo do container chega a 85% do viewport
-            toggleActions: 'play none none none', // Garante que a animação só aconteça uma vez
-        }
-    });
-
-});
-
-// Espera o DOM (a página) carregar completamente
-document.addEventListener("DOMContentLoaded", () => {
-    // --- INÍCIO: Header com Fundo Sólido ao Rolar ---
-    
-    const header = document.querySelector('.header');
-    
-    // Define a 'altura' do banner. O header mudará de cor 
-    // depois que o usuário rolar 50 pixels para baixo.
-    const scrollThreshold = 700; 
-
-    window.addEventListener('scroll', () => {
-        // Se o usuário rolou mais que o 'scrollThreshold'
-        if (window.scrollY > scrollThreshold) {
-            // Adiciona a classe que o tornará sólido
-            header.classList.add('header-scrolled');
+        // 3. Aplica a formatação
+        if (value.length > 10) {
+            value = value.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
+        } else if (value.length > 6) { 
+            value = value.replace(/^(\d\d)(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+        } else if (value.length > 2) {
+            value = value.replace(/^(\d\d)(\d{0,5}).*/, "($1) $2");
         } else {
-            // Remove a classe se o usuário voltar ao topo
-            header.classList.remove('header-scrolled');
+            value = value.replace(/^(\d*)/, "($1");
         }
+        
+        return value;
+    }
+
+    const phoneInputs = document.querySelectorAll('#telefone, #whatsapp');
+    phoneInputs.forEach(input => {
+        input.addEventListener('input', handlePhoneMask);
     });
+
+
+    // =============================================================
+    // 4. DATA MÍNIMA (Bloqueia datas passadas e < 2 dias)
+    // =============================================================
+    const dateInput = document.getElementById('data_entrega');
     
-    // --- FIM: Header com Fundo Sólido ao Rolar ---
-    // --- Início: Lógica do Menu Hambúrguer ---
-    
+    if (dateInput) {
+        const today = new Date();
+        today.setDate(today.getDate() + 2); // Hoje + 2 dias
+        
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        
+        const minDate = `${yyyy}-${mm}-${dd}`;
+        dateInput.min = minDate;
+        
+        dateInput.addEventListener('change', function() {
+            if (this.value && this.value < minDate) {
+                alert("A data deve ser de no mínimo 2 dias a partir de hoje!");
+                this.value = '';
+            }
+        });
+    }
+
+
+    // =============================================================
+    // 5. ENVIO DO FORMULÁRIO PARA O WHATSAPP
+    // =============================================================
+    const orderForm = document.getElementById('order-form');
+    if (orderForm) {
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            
+            const nome = document.getElementById('nome_completo').value;
+            const telefone = document.getElementById('telefone').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const sabor = document.getElementById('sabor_bolo').value;
+            const tamanho = document.getElementById('tamanho_bolo').value;
+            const data = document.getElementById('data_entrega').value;
+            const observacoes = document.getElementById('observacoes_especiais').value;
+            
+            // --- VALIDAÇÃO ---
+            const whatsappClean = whatsapp.replace(/\D/g, '');
+            const telefoneClean = telefone.replace(/\D/g, '');
+
+            if (whatsappClean.length < 10) {
+                alert("Número de WhatsApp inválido! Por favor, digite o número completo com DDD.");
+                document.getElementById('whatsapp').focus();
+                return; 
+            }
+
+            if (telefoneClean.length > 0 && telefoneClean.length < 10) {
+                alert("Número de Telefone inválido! Digite o número completo ou deixe em branco.");
+                document.getElementById('telefone').focus();
+                return; 
+            }
+            // --- FIM VALIDAÇÃO ---
+
+            const whatsappNumber = "5516981348725"; 
+
+            let message = `Olá, gostaria de fazer um pedido de bolo. Aqui estão os detalhes:\n\n`;
+            message += `*Nome Completo:* ${nome}\n`;
+            
+            message += `*WhatsApp de Contato:* ${whatsapp}\n`;
+            if (telefone) { message += `*Telefone Alternativo:* ${telefone}\n`; }
+            
+            message += `*Sabor do Bolo:* ${sabor}\n*Tamanho do Bolo:* ${tamanho}\n*Data de Entrega:* ${data}\n`;
+            message += `*Observações Especiais:* ${observacoes}\n`;
+            message += `\n*Aguardamos seu contato para confirmar o pedido!*`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        });
+    }
+
+
+    // =============================================================
+    // 6. HEADER "LIQUID GLASS" E ROLAGEM
+    // =============================================================
+    const header = document.querySelector('.header');
+    const scrollThreshold = 50; 
+
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+    }
+
+
+    // =============================================================
+    // 7. MENU HAMBÚRGUER (MOBILE)
+    // =============================================================
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
-            // Adiciona/Remove a classe 'active' no menu (para mostrar/esconder)
             navMenu.classList.toggle('active');
-            
-            // Adiciona/Remove a classe 'is-active' no botão (para mudar para "X")
             menuToggle.classList.toggle('is-active');
         });
 
-        // Opcional: Fechar o menu ao clicar em um link ou no botão de zap
         const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -270,28 +305,76 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Fim: Lógica do Menu Hambúrguer ---
-    
-    // (Deixe o resto do seu JS, como o dos botões da hero, aqui)
-    // Seleciona todos os botões que queremos animar
-    // (Neste caso, os botões dentro de .hero-buttons)
-    const heroButtons = document.querySelectorAll('.hero-buttons .btn');
 
-    // Adiciona um "ouvinte" de movimento do mouse para CADA botão
+    // =============================================================
+    // 8. EFEITO AURORA NOS BOTÕES
+    // =============================================================
+    const heroButtons = document.querySelectorAll('.hero-buttons .btn');
     heroButtons.forEach(button => {
         button.addEventListener('mousemove', (e) => {
-            
-            // 1. Pega o tamanho e a posição do botão na tela
             const rect = button.getBoundingClientRect();
-            
-            // 2. Calcula a posição do mouse DENTRO do botão
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-
-            // 3. Atualiza as variáveis CSS (--x e --y) no estilo do botão
-            // O CSS que você colou acima usará essas variáveis!
             button.style.setProperty('--x', `${x}px`);
             button.style.setProperty('--y', `${y}px`);
         });
     });
+
+
+    // =============================================================
+    // 9. ANIMAÇÕES GSAP
+    // =============================================================
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        const applyScrollFloat = (selector) => {
+            const element = document.querySelector(selector);
+            if (!element) return;
+            
+            const text = element.textContent;
+            element.textContent = ''; 
+            const splitTextHTML = text.split('').map((char) => {
+                const content = char === ' ' ? '\u00A0' : char; 
+                return `<span class="char">${content}</span>`;
+            }).join('');
+            element.innerHTML = splitTextHTML;
+            
+            const charElements = element.querySelectorAll('.char');
+
+            gsap.fromTo(
+                charElements,
+                { willChange: 'opacity, transform', opacity: 0, yPercent: 120, scaleY: 2.3, scaleX: 0.7, transformOrigin: '50% 0%' },
+                {
+                    duration: 1.2, 
+                    ease: 'power2.out',
+                    opacity: 1,
+                    yPercent: 0,
+                    scaleY: 1,
+                    scaleX: 1,
+                    stagger: 0.03, 
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top bottom', 
+                        end: 'center center', 
+                        scrub: true 
+                    }
+                }
+            );
+        };
+        applyScrollFloat('.text-to-split');
+        
+        const valueItems = gsap.utils.toArray('.value-item');
+        if (valueItems.length > 0) {
+            gsap.from(valueItems, {
+                y: 100, 
+                opacity: 0,
+                stagger: 0.2,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.values-grid',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none',
+                }
+            });
+        }
+    }
 });

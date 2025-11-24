@@ -116,29 +116,34 @@
             </div>
         </section>
 
-        <section id="encomendar" class="order-section">
+   <section id="encomendar" class="order-section">
             <div class="container">
                 <h2>Fazer Encomenda</h2>
                 <p>Preencha os dados abaixo e enviaremos sua encomenda via WhatsApp para confirmação.</p>
+                
                 <div class="order-form-container">
                     <form class="order-form" id="order-form">
+                        
                         <div class="form-row">
                             <div class="form-group">
                                 <i class="fas fa-user"></i>
                                 <label for="nome_completo">Nome Completo *</label>
-                                <input type="text" id="nome_completo" name="nome_completo" required>
+                                <input type="text" id="nome_completo" name="nome_completo" placeholder="Nome Completo" required>
                             </div>
+                            
                             <div class="form-group">
                                 <i class="fas fa-phone"></i>
-                                <label for="telefone">Telefone *</label>
-                                <input type="tel" id="telefone" name="telefone" required>
+                                <label for="telefone">Telefone (Opcional)</label>
+                                <input type="tel" id="telefone" name="telefone" placeholder="Telefone (Opcional)" maxlength="15">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <i class="fab fa-whatsapp"></i>
-                            <label for="whatsapp">WhatsApp (se diferente do telefone)</label>
-                            <input type="tel" id="whatsapp" name="whatsapp">
+                            <label for="whatsapp">WhatsApp *</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="Número de WhatsApp" maxlength="15" required>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <i class="fas fa-cookie-bite"></i>
@@ -177,25 +182,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <i class="fas fa-calendar-alt"></i>
-                                <label for="data_entrega">Data de Entrega *</label>
-                                <input type="date" id="data_entrega" name="data_entrega" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fas fa-gift"></i>
-                                <label for="ocasiao">Ocasião</label>
-                                <input type="text" id="ocasiao" name="ocasiao">
-                            </div>
+
+                        <div class="form-group">
+                            <i class="fas fa-calendar-alt"></i>
+                            <label for="data_entrega">Data de Entrega *</label>
+                            <input type="date" id="data_entrega" name="data_entrega" required>
                         </div>
+                        
                         <div class="form-group">
                             <i class="fas fa-notes-medical"></i>
-                            <label for="observacoes_especiais">Observações Especiais</label>
-                            <textarea id="observacoes_especiais" name="observacoes_especiais" placeholder="Personalizações, decorações especiais, observações sobre alergias, etc."></textarea>
+                            <label for="observacoes_especiais">Observações Especiais *</label>
+                            <textarea id="observacoes_especiais" name="observacoes_especiais" placeholder="Personalizações, decorações especiais, observações sobre alergias, etc." required></textarea>
                         </div>
+
                         <button type="submit" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Enviar Encomenda pelo WhatsApp</button>
                     </form>
+
                     <div class="order-info-panel">
                         <div class="info-block">
                             <h4>Guia de Tamanhos</h4>
@@ -208,7 +210,6 @@
                         <div class="info-block">
                             <h4>Informações de Contato</h4>
                             <p><i class="fab fa-whatsapp"></i> WhatsApp Principal: (16) 98134-8725</p>
-                            <p><i class="fas fa-phone"></i> Alternativo: (16) 99274-1572</p>
                             <p><strong>Prazo de entrega:</strong> Mínimo 48h de antecedência para encomendas.</p>
                         </div>
                         <div class="info-block">
@@ -224,55 +225,46 @@
             </div>
         </section>
 
-        <section id="contato" class="contact-section">
+<section id="contato" class="contact-section">
             <div class="container">
                 <h2>Entre em Contato</h2>
                 <p>Estamos aqui para tornar seu momento especial ainda mais doce. Entre em contato conosco através de qualquer um dos canais abaixo.</p>
                 <div class="contact-grid">
+                    
                     <div class="contact-channels">
                         <h3>Nossos Canais de Atendimento</h3>
-                        <div class="contact-channel-item">
-                            <i class="fas fa-phone"></i>
-                            <h4>Telefone Principal</h4>
-                            <p>(16) 98134-8725</p>
-                            <span>Ligue para fazer seu pedido</span>
-                        </div>
-                        <div class="contact-channel-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <h4>Telefone Alternativo</h4>
-                            <p>(16) 99274-1572</p>
-                            <span>Segundo número para contato</span>
-                        </div>
+                        
+                        
+
                         <div class="contact-channel-item">
                             <i class="fab fa-whatsapp"></i>
                             <h4>WhatsApp</h4>
                             <p>(16) 99274-1572</p>
                             <span>Nosso canal principal de atendimento</span>
                         </div>
+                        
                         <div class="contact-channel-item">
                             <i class="fab fa-instagram"></i>
                             <h4>Instagram</h4>
                             <p>@claudia_confeitaria</p>
                             <span>Siga-nos para ver nossos doces</span>
                         </div>
+                        
                         <a href="https://wa.me/5516992741572" class="btn btn-whatsapp-block" target="_blank">
                             <i class="fab fa-whatsapp"></i> Falar Agora
                         </a>
                     </div>
+
                     <div class="contact-info">
                         <h3>Nossa Localização</h3>
+                        
                         <div class="location-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <h4>Cláudia Confeitaria - Doces Artesanais</h4>
+                            <h4>Rua Domingos Padovan - 974 Jd. Anhanguera</h4>
                             <p>Ribeirão Preto - SP</p>
                             <p>Atendimento em toda a região</p>
-                            <span>Delivery disponível</span>
                         </div>
-                        <div class="delivery-check">
-                            <i class="fas fa-truck-loading"></i>
-                            <p>Fazemos entregas em Ribeirão Preto e região. Entre em contato para verificar disponibilidade na sua área.</p>
-                            <button class="btn btn-secondary">Consultar Entrega</button>
-                        </div>
+
                         <h3>Horários de Funcionamento</h3>
                         <div class="hours-item">
                             <h4>Segunda a Sexta</h4>
