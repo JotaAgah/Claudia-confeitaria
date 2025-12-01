@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Inspirado no famoso sorvete, com mousse cremosa de chocolate branco e pedaços de morango frescos.",
             image: "img/bolo3.png",
             tags: ["Bolo Branco", "Gourmet"],
-            filters: ["bolobranco", "gourmet"]
+            filters: ["chocolate", "gourmet"]
         },
         {
             name: "Brigadeiro gourmet c/ morango",
             description: "Bolo sofisticado com brigadeiro branco cremoso e morangos frescos selecionados.",
             image: "img/bolo4.png",
             tags: ["Bolo Branco", "Gourmet"],
-            filters: ["bolobranco", "gourmet"]
+            filters: ["chocolate", "gourmet"]
         },
         {
             name: "Coco c/ doce de leite",
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Irresistível combinação de leite ninho com cobertura cremosa de nutella.",
             image: "img/bolo12.png",
             tags: ["Chocolate", "Gourmet"],
-            filters: ["chocolate", "gourmet"]
+            filters: ["bolobranco", "gourmet"]
         }
     ];
 
