@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // =============================================================
-    // 1. DADOS DOS BOLOS (ATUALIZADO SEM TAGS DE ALERGIA)
+    // 1. DADOS DOS BOLOS
     // =============================================================
     const cakes = [
         {
@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const flavorList = document.getElementById('flavor-list');
     const flavorSearch = document.getElementById('flavor-search');
     const flavorFilter = document.getElementById('flavor-filter');
-    // REMOVIDO: const allergenFilter ...
 
     // Função que desenha os cards na tela
     const renderCakes = (filteredCakes) => {
@@ -110,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredCakes.forEach(cake => {
             const card = document.createElement('div');
             card.className = 'flavor-card';
+            
+            // HTML do card: SEM botão de detalhes, COM aviso ilustrativo
             card.innerHTML = `
                 <img src="${cake.image}" alt="${cake.name}">
                 <div class="flavor-card-content">
@@ -118,41 +119,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="tags">
                         ${cake.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                     </div>
-                    <a href="#encomendar" class="btn btn-details">Ver Detalhes</a>
+                    <p class="image-disclaimer">* Imagem meramente ilustrativa</p>
                 </div>
             `;
             flavorList.appendChild(card);
         });
     };
 
-    // Função que filtra os bolos
     const filterAndSearchCakes = () => {
         const searchTerm = flavorSearch.value.toLowerCase();
         const selectedFlavor = flavorFilter.value;
-        // REMOVIDO: const selectedAllergen ...
 
         const filteredCakes = cakes.filter(cake => {
             const matchesSearch = cake.name.toLowerCase().includes(searchTerm) || cake.description.toLowerCase().includes(searchTerm);
             const matchesFlavor = selectedFlavor === 'all' || cake.filters.includes(selectedFlavor);
-            // REMOVIDO: const matchesAllergen ...
-            
-            // Retorna apenas se bater com a busca E com o sabor
             return matchesSearch && matchesFlavor;
         });
         renderCakes(filteredCakes);
     };
 
-    // Ativa os filtros se os elementos existirem
     if (flavorSearch) flavorSearch.addEventListener('input', filterAndSearchCakes);
     if (flavorFilter) flavorFilter.addEventListener('change', filterAndSearchCakes);
-    // REMOVIDO: if (allergenFilter) ...
     
-    // Desenha a lista inicial
     renderCakes(cakes);
 
 
     // =============================================================
-    // 3. MÁSCARA DE TELEFONE E WHATSAPP (CORRIGIDA)
+    // 3. MÁSCARA DE TELEFONE E WHATSAPP
     // =============================================================
     const handlePhoneMask = (event) => {
         let input = event.target;
@@ -163,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!value) return "";
         value = value.replace(/\D/g, ''); 
         if (value.length === 0) return "";
+        
         value = value.substring(0, 11);
+
         if (value.length > 10) {
             value = value.replace(/^(\d\d)(\d{5})(\d{4}).*/, "($1) $2-$3");
         } else if (value.length > 6) { 
@@ -183,25 +178,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =============================================================
-    // 4. DATA MÍNIMA (Bloqueia datas passadas e < 2 dias)
+    // 4. DATA MÍNIMA (REFORÇADO: Bloqueia < 2 dias)
     // =============================================================
     const dateInput = document.getElementById('data_entrega');
     
     if (dateInput) {
+        // Pega a data de hoje
         const today = new Date();
+        // Soma 2 dias
         today.setDate(today.getDate() + 2); 
         
+        // Formatação manual para garantir compatibilidade
         const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
+        let mm = today.getMonth() + 1; // Mês 0-11
+        let dd = today.getDate();
+
+        if (mm < 10) mm = '0' + mm;
+        if (dd < 10) dd = '0' + dd;
         
         const minDate = `${yyyy}-${mm}-${dd}`;
-        dateInput.min = minDate;
         
+        // Define o atributo min no HTML
+        dateInput.setAttribute('min', minDate);
+        dateInput.min = minDate; // Redundância para garantir
+        
+        // Ouvinte de evento: Se o usuário tentar burlar ou digitar, limpa
         dateInput.addEventListener('change', function() {
             if (this.value && this.value < minDate) {
-                alert("A data deve ser de no mínimo 2 dias a partir de hoje!");
-                this.value = '';
+                alert("Para garantir a qualidade e frescor, pedimos no mínimo 2 dias de antecedência! Por favor, escolha uma nova data.");
+                this.value = ''; // Limpa o campo inválido
             }
         });
     }
@@ -223,29 +228,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = document.getElementById('data_entrega').value;
             const observacoes = document.getElementById('observacoes_especiais').value;
             
+            // Validações
             const whatsappClean = whatsapp.replace(/\D/g, '');
             const telefoneClean = telefone.replace(/\D/g, '');
 
             if (whatsappClean.length < 10) {
-                alert("Número de WhatsApp inválido! Por favor, digite o número completo com DDD.");
+                alert("Número de WhatsApp inválido! Digite DDD + Número.");
                 document.getElementById('whatsapp').focus();
                 return; 
             }
 
             if (telefoneClean.length > 0 && telefoneClean.length < 10) {
-                alert("Número de Telefone inválido! Digite o número completo ou deixe em branco.");
+                alert("Número de Telefone inválido!");
                 document.getElementById('telefone').focus();
                 return; 
             }
 
-            const whatsappNumber = "5516992741572"; 
+            // --- NÚMERO DE WHATSAPP DA CONFEITARIA ---
+            const whatsappNumber = "5516981348725"; 
 
             let message = `Olá, gostaria de fazer um pedido de bolo. Aqui estão os detalhes:\n\n`;
             message += `*Nome Completo:* ${nome}\n`;
-            
             message += `*WhatsApp de Contato:* ${whatsapp}\n`;
             if (telefone) { message += `*Telefone Alternativo:* ${telefone}\n`; }
-            
             message += `*Sabor do Bolo:* ${sabor}\n*Tamanho do Bolo:* ${tamanho}\n*Data de Entrega:* ${data}\n`;
             message += `*Observações Especiais:* ${observacoes}\n`;
             message += `\n*Aguardamos seu contato para confirmar o pedido!*`;
@@ -257,10 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =============================================================
-    // 6. HEADER "LIQUID GLASS" E ROLAGEM
+    // 6. HEADER "LIQUID GLASS" (CORRIGIDO: Altura da Tela)
     // =============================================================
     const header = document.querySelector('.header');
-    const scrollThreshold = 50; 
+    
+    // Calcula a altura da janela do navegador - 80px
+    // Isso garante que a barra mude logo após o banner sair de cena
+    const scrollThreshold = window.innerHeight - 80;
 
     if (header) {
         window.addEventListener('scroll', () => {
@@ -274,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // =============================================================
-    // 7. MENU HAMBÚRGUER (MOBILE)
+    // 7. MENU HAMBÚRGUER
     // =============================================================
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('.nav-menu');

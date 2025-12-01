@@ -427,7 +427,7 @@ h1, h2, h3 {
 }
 
 .search-box input {
-    width: 350px;
+    width: 650px !important;
     padding: 10px 15px 10px 40px;
     border: 1px solid #ddd;
     border-radius: 50px;
@@ -1075,6 +1075,129 @@ h1, h2, h3 {
 /* 4. Ajusta o hover para o texto escuro */
 .header.header-scrolled .nav-menu a:hover {
     color: var(--primary-color); /* Sua cor primária (laranja/coral) */
+}
+
+/* --- Estilo da mensagem "Imagem Meramente Ilustrativa" --- */
+.image-disclaimer {
+    font-size: 0.75rem;    /* Letra bem pequena */
+    color: #aaa;           /* Cinza claro para não chamar muita atenção */
+    font-style: italic;    /* Itálico para dar um tom de "observação" */
+    margin-top: 15px;      /* Espaço acima para separar das tags */
+    text-align: right;     /* Alinhado à direita fica mais organizado */
+    display: block;        /* Garante que ocupe a linha toda */
+}
+
+/* --- CORREÇÃO DA BARRA DE PESQUISA NO MOBILE --- */
+
+@media (max-width: 768px) {
+    .search-filter-bar {
+        /* Garante que a barra e o filtro fiquem um embaixo do outro */
+        flex-direction: column; 
+        width: 100%;
+    }
+
+    .search-box {
+        width: 100%; /* A caixa da busca ocupa 100% da largura */
+    }
+
+    .search-box input {
+        /* Aqui a mágica acontece: */
+        /* Sobrescrevemos os 600px fixos por 100% da tela do celular */
+        width: 100% !important; 
+        
+        /* Ajustes visuais para mobile */
+        max-width: 100%;
+        font-size: 0.9rem !important; /* Diminui um pouco a fonte */
+        padding: 12px 15px 12px 40px !important; /* Ajusta o espaço interno */
+    }
+}
+
+/* --- CORREÇÃO DO MENU MOBILE INVISÍVEL --- */
+
+/* 1. Quando o menu está ABERTO (.active), force os links a serem escuros */
+.header .nav-menu.active ul a {
+    color: var(--text-color) !important;
+}
+
+/* 2. Quando o menu está ABERTO, force o ícone de fechar ("X") a ser escuro */
+/* O botão ganha a classe 'is-active' quando clicado */
+.mobile-menu-toggle.is-active {
+    color: var(--text-color) !important;
+    position: fixed; /* Garante que o X fique preso na tela */
+    top: 25px;       /* Ajuste fino da posição para não pular */
+    right: 20px;
+}
+
+/* 3. Garante que o fundo do menu seja sempre branco sólido */
+.nav-menu.active {
+    background-color: var(--white-color) !important;
+    backdrop-filter: none !important; /* Remove o desfoque de vidro se tiver */
+}
+
+/* --- CORREÇÃO DE EMERGÊNCIA: MENU MOBILE --- */
+
+@media (max-width: 992px) {
+    
+    /* 1. O Fundo do Menu (A Tela Branca) */
+    .nav-menu.active {
+        /* Posição fixa para cobrir a tela toda */
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important; /* Largura total */
+        height: 100vh !important; /* Altura total */
+        
+        /* COR DE FUNDO SÓLIDA E OBRIGATÓRIA */
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+        
+        /* Remove qualquer efeito de vidro ou transparência */
+        backdrop-filter: none !important;
+        opacity: 1 !important;
+        
+        /* Garante que fique na frente de TUDO */
+        z-index: 9999 !important;
+        
+        /* Centraliza os itens */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding-top: 0 !important;
+    }
+
+    /* 2. Os Links (Texto do Menu) */
+    .nav-menu.active ul {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+        text-align: center !important;
+        margin-bottom: 30px !important;
+    }
+
+    .nav-menu.active ul li a {
+        /* Texto Escuro Obrigatório */
+        color: #333333 !important; 
+        font-size: 1.5rem !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+    }
+
+    /* 3. O Botão "X" de Fechar */
+    .mobile-menu-toggle.is-active {
+        position: fixed !important;
+        top: 25px !important;
+        right: 25px !important;
+        z-index: 10000 !important; /* Fica acima do fundo branco */
+        
+        /* Cor do X Escura Obrigatória */
+        color: #333333 !important; 
+    }
+    
+    /* Garante que o ícone dentro do botão também fique escuro */
+    .mobile-menu-toggle.is-active i {
+        color: #333333 !important;
+    }
 }
 
 /* --- FIM: Estilo do Header ao Rolar --- */
